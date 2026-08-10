@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="A free personal daily planner, focus timer, habits and finance tracker." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="enhancements.css" />
+  <link rel="stylesheet" href="audit.css" />
+  <link rel="stylesheet" href="daily-features.css" />
+  <title>Daylight — Your daily rhythm</title>
+</head>
+<body>
+  <section class="auth-screen" id="authScreen" hidden>
+    <div class="auth-card"><a class="brand" href="#"><span class="brand-mark">✦</span><span>daylight</span></a><p class="eyebrow">YOUR PRIVATE DAILY SPACE</p><h1>Welcome back.</h1><p class="muted">Sign in to keep your plans safely synced across your devices.</p><form id="authForm"><label id="authNameLabel" hidden>Your name<input id="authName" type="text" autocomplete="name" placeholder="e.g. Priya" /></label><label>Email<input id="authEmail" type="email" required autocomplete="email" placeholder="you@example.com" /></label><label>Password<input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="At least 6 characters" /></label><p id="authMessage" class="auth-message"></p><button class="add-btn" id="authSubmit" type="submit">Sign in</button><button class="text-btn auth-switch" id="authSwitch" type="button">New here? Create a free account</button></form><small>Your data is private to your account.</small></div>
+  </section>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard"><span class="brand-mark">✦</span><span>daylight</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="dashboard"><span>⌂</span> Overview</button>
+        <button class="nav-item" data-view="planner"><span>✓</span> My planner <b id="navTaskCount">3</b></button>
+        <button class="nav-item" data-view="habits"><span>◌</span> Habits</button>
+        <button class="nav-item" data-view="calendar"><span>□</span> Calendar</button>
+        <button class="nav-item" data-view="journal"><span>✎</span> Journal</button>
+        <button class="nav-item" data-view="finances"><span>⌁</span> Finances</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-profile"><span class="avatar" id="userAvatar">P</span><div><strong id="userName">My space</strong><small id="userEmail">Everything is private</small></div></div>
+        <button class="settings" id="signOutBtn" hidden>↪ Sign out</button>
+        <button class="settings" id="exportBtn">⇩ Export my data</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="menuBtn" aria-label="Open menu">☰</button>
+        <div class="date-label" id="todayLabel"></div>
+        <div class="top-actions"><button class="reminder-btn" id="notificationBtn" title="Notification settings">♧ <span id="notificationLabel">Reminders</span></button><button class="icon-btn" id="themeBtn" title="Change theme">☼</button><button class="add-btn" id="quickAdd">＋ <span>Add new</span></button></div>
+      </header>
+
+      <section class="view active" id="dashboard">
+        <div class="hero"><div><p class="eyebrow">A gentle start</p><h1>Good morning, <span id="dashboardName">friend.</span></h1><p class="muted">Small, intentional steps make a meaningful day.</p></div><div class="hero-quote">“The secret of getting ahead is getting started.”<small>— Mark Twain</small></div></div>
+        <div class="stats-grid">
+          <article class="stat-card coral"><span class="stat-icon">✓</span><div><small>Today’s tasks</small><strong id="tasksDoneStat">2 <em>/ 5</em></strong></div><span class="stat-trend">+1 from yesterday</span></article>
+          <article class="stat-card lavender"><span class="stat-icon">◌</span><div><small>Habit streak</small><strong id="streakStat">12 <em>days</em></strong></div><span class="stat-trend">Keep it glowing ✦</span></article>
+          <article class="stat-card yellow"><span class="stat-icon">◷</span><div><small>Focus this week</small><strong id="focusStat">8.5 <em>hrs</em></strong></div><span class="stat-trend">↑ 18% vs last week</span></article>
+          <article class="stat-card mint"><span class="stat-icon">₹</span><div><small>Spent today</small><strong id="spentStat">₹420</strong></div><span class="stat-trend">Within your daily plan</span></article>
+        </div>
+        <div class="dashboard-grid">
+          <article class="panel focus-panel">
+            <div class="panel-head"><div><p class="eyebrow">DEEP WORK</p><h2>Focus space</h2></div><button class="more-btn">•••</button></div>
+            <div class="timer-wrap"><svg class="timer-ring" viewBox="0 0 160 160"><circle cx="80" cy="80" r="67" /><circle id="timerProgress" class="progress" cx="80" cy="80" r="67" /></svg><div class="timer-display"><strong id="timerValue">25:00</strong><small>FOCUS SESSION</small></div></div>
+            <div class="timer-actions"><button class="pill-btn" id="timerReset">↺ Reset</button><button class="play-btn" id="timerToggle">▶ Start focus</button><button class="pill-btn" id="timerMode">25 min⌄</button></div>
+          </article>
+          <article class="panel tasks-panel"><div class="panel-head"><div><p class="eyebrow">UP NEXT</p><h2>Today’s plan <span id="remainingTasks">3 remaining</span></h2></div><button class="text-btn" data-view-link="planner">View all →</button></div><div class="task-list" id="todayTasks"></div><button class="add-line" id="addTaskBtn">＋ Add a task</button></article>
+          <article class="panel habit-panel"><div class="panel-head"><div><p class="eyebrow">DAILY RHYTHM</p><h2>Habit check-in</h2></div><button class="text-btn" data-view-link="habits">Details →</button></div><div id="habitList"></div><div class="habit-footer"><span id="habitSummary">2 of 4 complete</span><div class="dots" id="habitDots"></div></div></article>
+          <article class="panel agenda-panel"><div class="panel-head"><div><p class="eyebrow">AT A GLANCE</p><h2>Today’s agenda</h2></div><button class="text-btn" data-view-link="calendar">Calendar →</button></div><div class="agenda"><div><time>09:30</time><span class="agenda-dot blue"></span><p><strong>Team standup</strong><small>Work · 30 mins</small></p></div><div><time>14:00</time><span class="agenda-dot orange"></span><p><strong>Focus: project brief</strong><small>Deep work · 90 mins</small></p></div><div><time>18:30</time><span class="agenda-dot purple"></span><p><strong>Evening walk</strong><small>Health · 45 mins</small></p></div></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="planner"><div class="page-head"><div><p class="eyebrow">YOUR DAY, CLEARLY</p><h1>My planner</h1><p class="muted">Keep tasks small and momentum steady.</p></div><button class="add-btn" id="plannerAdd">＋ Add task</button></div><div class="planner-layout"><article class="panel"><div class="filter-tabs"><button class="selected" data-task-filter="today">Today</button><button data-task-filter="week">This week</button><button data-task-filter="all">All tasks</button></div><div class="task-list large" id="plannerTasks"></div></article><article class="panel progress-card"><p class="eyebrow">TODAY'S PROGRESS</p><div class="donut"><span id="completionPercent">40%</span></div><h2>One step at a time</h2><p class="muted">You’ve completed <b id="completedLong">2 tasks</b> today.</p></article></div></section>
+
+      <section class="view" id="habits"><div class="page-head"><div><p class="eyebrow">BUILD YOUR RHYTHM</p><h1>Habits</h1><p class="muted">Check in once each day and watch your weekly consistency grow.</p></div><button class="add-btn" id="addHabit">＋ New habit</button></div><div class="habits-page" id="habitsPage"></div><article class="panel habit-graph-panel"><div class="panel-head"><div><p class="eyebrow">LAST 7 DAYS</p><h2>Daily habit progress</h2></div><span class="chart-total" id="habitGraphSummary"></span></div><div class="habit-graph" id="habitGraph"></div></article></section>
+
+      <section class="view" id="calendar"><div class="page-head calendar-head"><div><p class="eyebrow">MAKE ROOM FOR WHAT MATTERS</p><h1>Calendar</h1></div><div class="cal-controls"><button id="prevMonth">‹</button><strong id="monthTitle"></strong><button id="nextMonth">›</button><input id="calendarPicker" type="month" aria-label="Choose calendar month" /><button class="today-btn" id="goToday">Today</button><button class="add-btn" id="addEvent">＋ Event</button></div></div><article class="panel calendar-panel"><div class="weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="calendar-grid" id="calendarGrid"></div></article><div class="calendar-events" id="calendarEvents"></div></section>
+
+      <section class="view" id="journal"><div class="page-head"><div><p class="eyebrow">A QUIET CORNER</p><h1>Journal</h1><p class="muted">Write one entry per day and revisit any earlier day.</p></div><div class="journal-controls"><button id="journalPrev" aria-label="Previous journal day">‹</button><input id="journalPicker" type="date" aria-label="Choose journal date" /><button id="journalNext" aria-label="Next journal day">›</button></div></div><div class="journal-layout"><article class="panel journal-panel"><span class="journal-date" id="journalDate"></span><label for="journalText">How are you feeling today?</label><textarea id="journalText" placeholder="Today I’m grateful for…"></textarea><div><span class="save-note" id="saveStatus" role="status"></span><button class="add-btn" id="saveJournal">Save today’s entry</button></div></article><aside class="panel journal-history"><p class="eyebrow">RECENT ENTRIES</p><div id="journalHistory"></div></aside></div></section>
+
+      <section class="view" id="finances"><div class="page-head"><div><p class="eyebrow">MONEY, MADE MINDFUL</p><h1>Finances</h1><p class="muted">A simple view of your day-to-day spending.</p></div><button class="add-btn" id="addExpense">＋ Add expense</button></div><div class="finance-grid"><article class="panel balance"><p>Spent this month</p><strong id="monthSpend">₹3,840</strong><span>of ₹12,000 monthly plan</span><div class="budget-bar"><i id="budgetBar"></i></div></article><article class="panel"><p class="eyebrow">SPENDING BY CATEGORY</p><div class="category-bars" id="categoryBars"></div></article></div><article class="panel spending-chart"><div class="panel-head"><div><p class="eyebrow">LAST 7 DAYS</p><h2>Daily spending</h2></div><span class="chart-total" id="weekSpend"></span></div><div class="bar-chart" id="spendingChart"></div></article><article class="panel transaction-panel"><div class="panel-head"><h2>Recent expenses</h2><span class="muted">Today</span></div><div id="expenseList"></div></article></section>
+    </main>
+  </div>
+  <dialog id="entryDialog"><form method="dialog" id="entryForm" novalidate><button class="dialog-close" type="button" id="dialogClose" aria-label="Close">×</button><h2 id="dialogTitle">Add task</h2><label>Name<input id="entryName" required autocomplete="off" /></label><label id="entryExtraLabel">Time <input id="entryExtra" type="text" placeholder="e.g. 10:00 AM" /></label><label class="schedule-field" id="scheduleLabel">Schedule (optional)<input id="entrySchedule" type="datetime-local" /></label><label class="notify-choice" id="notifyLabel"><input id="entryNotify" type="checkbox" /> Notify me at this time</label><p class="form-note">Reminders stay private on this device.</p><button class="add-btn" type="submit" id="dialogSubmit">Save</button></form></dialog>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+  <script src="enhancements.js"></script>
+  <script src="daily-features.js"></script>
+</body>
+</html>

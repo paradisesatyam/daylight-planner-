@@ -1,0 +1,3 @@
+const CACHE='daylight-v7'; const ASSETS=['./','./index.html','./styles.css','./enhancements.css','./audit.css','./daily-features.css','./app.js','./enhancements.js','./daily-features.js','./supabase-config.js','./manifest.webmanifest','./icon.svg'];
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(response=>{if(response.ok&&new URL(e.request.url).origin===self.location.origin)caches.open(CACHE).then(cache=>cache.put(e.request,response.clone()));return response}).catch(()=>caches.match(e.request)))});
