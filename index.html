@@ -46,7 +46,7 @@
         <div class="stats-grid">
           <article class="stat-card coral"><span class="stat-icon">✓</span><div><small>Today’s tasks</small><strong id="tasksDoneStat">2 <em>/ 5</em></strong></div><span class="stat-trend">+1 from yesterday</span></article>
           <article class="stat-card lavender"><span class="stat-icon">◌</span><div><small>Habit streak</small><strong id="streakStat">12 <em>days</em></strong></div><span class="stat-trend">Keep it glowing ✦</span></article>
-          <article class="stat-card yellow"><span class="stat-icon">◷</span><div><small>Focus this week</small><strong id="focusStat">8.5 <em>hrs</em></strong></div><span class="stat-trend">↑ 18% vs last week</span></article>
+          <article class="stat-card yellow"><span class="stat-icon">◷</span><div><small>Focus today</small><strong id="focusStat">0 <em>sessions</em></strong></div><span class="stat-trend">Resets automatically each day</span></article>
           <article class="stat-card mint"><span class="stat-icon">₹</span><div><small>Spent today</small><strong id="spentStat">₹420</strong></div><span class="stat-trend">Within your daily plan</span></article>
         </div>
         <div class="dashboard-grid">
@@ -74,6 +74,7 @@
   </div>
   <dialog id="entryDialog"><form method="dialog" id="entryForm" novalidate><button class="dialog-close" type="button" id="dialogClose" aria-label="Close">×</button><h2 id="dialogTitle">Add task</h2><label>Name<input id="entryName" required autocomplete="off" /></label><label id="entryExtraLabel">Time <input id="entryExtra" type="text" placeholder="e.g. 10:00 AM" /></label><label class="schedule-field" id="scheduleLabel">Schedule (optional)<input id="entrySchedule" type="datetime-local" /></label><label class="notify-choice" id="notifyLabel"><input id="entryNotify" type="checkbox" /> Notify me at this time</label><p class="form-note">Reminders stay private on this device.</p><button class="add-btn" type="submit" id="dialogSubmit">Save</button></form></dialog>
   <dialog id="profileDialog"><form method="dialog" id="profileForm" novalidate><h2>What should we call you?</h2><p class="muted">This name is shown on your dashboard and saved for future sign-ins.</p><label>Your name<input id="profileName" required minlength="2" maxlength="40" autocomplete="name" placeholder="e.g. Satyam" /></label><button class="add-btn" type="submit">Save name</button></form></dialog>
+  <dialog id="focusDialog"><form method="dialog" id="focusForm" novalidate><button class="dialog-close" type="button" id="focusDialogClose" aria-label="Close">×</button><h2>Focus session length</h2><p class="muted">Choose how long one focus session should last.</p><label>Minutes<input id="focusDuration" type="number" min="1" max="180" required inputmode="numeric" /></label><button class="add-btn" type="submit">Save session length</button></form></dialog>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>
   <script src="app.js"></script>
